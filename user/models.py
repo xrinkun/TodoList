@@ -11,12 +11,12 @@ class UserInfo(models.Model):
     # auto_now_add 为创建model时自动填写当前时间
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
-    #admin中显示每条数据的title
+    # admin中显示每条数据的title
     def __str__(self):
         return self.username
 
     class Meta:
-        #admin点进表中所显示的信息
+        # admin点进表中所显示的信息
         verbose_name = "用户信息"
-        #admin中显示的表名
+        # admin中显示的表名
         verbose_name_plural = "用户信息"

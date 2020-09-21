@@ -2,9 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/index.css">
     <title>TodoList</title>
 </head>
 <body>
-    <h1 style="text-align: center">welcome!</h1>
+    <header>
+        <nav>
+            <a class="logo" href="/index/">TodoList</a>
+            <ul>
+                <li onclick="login()">{{ username }}</li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <input type="hidden" value={{ username }} class="username">
+        {% if task_num == 0 %}
+            <div class="addContainer">
+                <h1 style="text-align: center;">没有任何事项，点击下面按钮添加</h1>
+                <button class="addTaskBtn" type="button" onclick="addTask()">添加</button>
+            </div>   
+        {% endif %}
+        <p>一共有{{ task_num }}个计划</p>
+        {% for item in task_list %}
+            <div class="card">
+                <h4>{{item.title}}</h4>
+                <p>{{item.content}}</p>
+                <p>{{item.add_time}}</p>
+                <p>{{item.last_change}}</p>
+            </div>
+        {% endfor %}
+    </main>
+    <script>
+        function login(){
+            window.location.href = "/login/"
+        }
+        function addTask() {
+            //TODO: 添加表单
+        }
+    </script>
 </body>
 </html>

@@ -3,14 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登录</title>
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <script src="{% static 'js/login.js' %}"></script>
+    <title>注册</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <script src="{% static 'js/register.js' %}"></script>
 </head>
 <body>
     <div class="container">
         <div class="logo"></div>
-        <form action="/login/" method="POST">
+        <form action="/register/" method="POST">
             <div class="formitem">
                 <input name="username" type="text" id="user" placeholder="用户名">
             </div>
@@ -19,13 +19,8 @@
                 <input name="password" type="password" id="passwd" placeholder="密码">
             </div>
         </form>
-        <p style="color: red;">{{ errmsg }}</p>
-        <div class="subform">
-            <button id="register" onclick="registeAction()">立即注册</button>
-            <input id="submit" type="button" value="登陆" onclick="submit()" onkeydown="keyDown(event)" >
-        </div>
-        
-        
+        <input id="submit" type="button" value="注册" onclick="submit()">
+        <a href="/login/">已有账号,登陆账号</a>
     </div>
     
 </body>

@@ -3,9 +3,8 @@ function submit() {
 }
 
 function keyDown(e) {
-    alert("我被调用了");
-    if (e.key = "Enter") {
-        submit();
+    if (e.key === "Enter") {
+        document.forms[0].submit();
     }
 }
 

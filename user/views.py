@@ -41,3 +41,10 @@ def register(request):
         except Exception as e:
             return HttpResponse("注册失败 失败原因:%s" % e)
         return HttpResponse("注册成功")
+
+def logout(request):
+    if request.session.get('is_login'):
+        request.session.flush()
+        return render(request, 'userloginfo.html', {'info': '成功注销用户'})
+    else:
+        return render(request, 'userloginfo.html', {'info': '未登陆'})

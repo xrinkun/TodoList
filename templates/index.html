@@ -9,35 +9,104 @@
     <header>
         <nav>
             <a class="logo" href="/index/">TodoList</a>
+            <button class="addTaskBtn" id="nav-add-batton" type="button" onclick="addTask()">添加</button>
             <ul>
-                <li onclick="login()">{{ username }}</li>
+                {% if username %}
+                    <li>{{ username }}</li>
+                    <li onclick="logout()">注销账号</li>
+                {% else %}
+                    <li onclick="login()">请登录</li>
+                {% endif %}
             </ul>
         </nav>
     </header>
     <main>
-        <input type="hidden" value={{ username }} class="username">
         {% if task_num == 0 %}
             <div class="addContainer">
                 <h1 style="text-align: center;">没有任何事项，点击下面按钮添加</h1>
                 <button class="addTaskBtn" type="button" onclick="addTask()">添加</button>
             </div>   
         {% endif %}
-        <p>一共有{{ task_num }}个计划</p>
-        {% for item in task_list %}
-            <div class="card">
-                <h4>{{item.title}}</h4>
-                <p>{{item.content}}</p>
-                <p>{{item.add_time}}</p>
-                <p>{{item.last_change}}</p>
+        <div class="cardcontent">
+            {% for item in task_list %}
+                <div class="card" onclick="editForm(this)">
+                    <input name="task_id" type="hidden" value="{{ item.id }}">
+                    <h4 id="title" onclick="event.cancelBubble = true">
+                        {{item.title}}
+                        <button id="delete-btn" onclick="deleteTask(this)">删除</button>
+                    </h4>
+                    <p id="content">{{item.content}}</p>
+                    <p id="addtime" style="font-size: 10px">创建时间:{{item.add_time}}</p>
+                    <p id="lastchange" style="font-size: 10px">修改时间:{{item.last_change}}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="taskform" id="taskform">
+            <form action="/addtask/?type=add" method="POST">
+                <h4 style="text-align: center;padding-top: 10px;">新建事项</h4>
+                <p>标题:&nbsp;<input type="text" name="title"></p>
+                <span style="display: inline-block;vertical-align: top;">内容:&nbsp;</span><textarea name="content" cols="36" rows="15" style="display: inline-block;"></textarea>
+            </form>
+            <div class="subform">
+                <button id="confirm" type="submit" style="background-color: cornflowerblue;" onclick="confirmForm('add')">确定</button>
+                <button id="cancel" style="background-color: #fff;" onclick="cancelForm('taskform')">取消</button>
             </div>
-        {% endfor %}
+        </div>
+        <div class="taskform" id="taskformedit">
+            <form action="/addtask/?type=edit" method="POST">
+                <h4 style="text-align: center;padding-top: 10px;">修改</h4>
+                <p>标题:&nbsp;<input type="text" name="title"></p>
+                <span style="display: inline-block;vertical-align: top;">内容:&nbsp;</span><textarea name="content" cols="36" rows="15" style="display: inline-block;"></textarea>
+                <input type="hidden" value="{{ username }}" name="username">
+                <input type="hidden" value="" name="task_id" id="editformip">
+            </form>
+            <div class="subform">
+                <button id="confirm" type="submit" style="background-color: cornflowerblue;" onclick="confirmForm('edit')">确定</button>
+                <button id="cancel" style="background-color: #fff;" onclick="cancelForm('taskformedit')">取消</button>
+            </div>
+        </div>
     </main>
     <script>
+        var task_id;
         function login(){
             window.location.href = "/login/"
         }
+
         function addTask() {
-            //TODO: 添加表单
+            var formdiv = document.getElementById("taskform")
+            formdiv.style.display = "block";
+        }
+
+        function cancelForm(idname) {
+            let formdiv = document.getElementById(idname)
+            formdiv.style.display = "none";
+        }
+
+        function confirmForm(type) {
+            switch (type) {
+                case "add":
+                    document.forms[0].submit();
+                    break;
+                case "edit":
+                    document.forms[1].submit();
+                    break;
+            }
+        }
+
+        function editForm(obj) {
+            task_id = obj.getElementsByTagName("input")[0].value;
+            let form = document.getElementById("taskformedit");
+            document.getElementById("editformip").setAttribute("value",task_id);
+            form.style.display = "block";
+        }
+
+        function logout() {
+            window.location.href = "/logout/";
+        }
+
+        function deleteTask(obj) {
+            let value = obj.parentNode.previousElementSibling.value;
+            window.location.href = "/deletetask/?id=" + value;
         }
     </script>
 </body>

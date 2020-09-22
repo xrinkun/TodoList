@@ -22,5 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', views.index),
     path('login/', userViews.login),
-    path('register/', userViews.register)
+    path('register/', userViews.register),
+    path('addtask/', views.addTask),
+    path('logout/', userViews.logout),
+    path('deletetask/', views.deleteTask)
 ]

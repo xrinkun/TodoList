@@ -9,9 +9,13 @@
     <header>
         <nav>
             <a class="logo" href="/index/">TodoList</a>
-            <button class="addTaskBtn" id="nav-add-batton" type="button" onclick="addTask()">添加</button>
+            {% if username != "未登录" %}
+                {% if task_num != 0  %}
+                    <button class="addTaskBtn" id="nav-add-batton" type="button" onclick="addTask()">添加</button>
+                {% endif %}
+            {% endif %}
             <ul>
-                {% if username %}
+                {% if username != None %}
                     <li>{{ username }}</li>
                     <li onclick="logout()">注销账号</li>
                 {% else %}
@@ -21,11 +25,13 @@
         </nav>
     </header>
     <main>
-        {% if task_num == 0 %}
+        {% if task_num == 0 and username != None%}
             <div class="addContainer">
                 <h1 style="text-align: center;">没有任何事项，点击下面按钮添加</h1>
                 <button class="addTaskBtn" type="button" onclick="addTask()">添加</button>
-            </div>   
+            </div>
+        {% elif username == "未登录" %}
+            <h1 style="text-align: center; margin-top: 200px">请点击右上角登录</h1>
         {% endif %}
         <div class="cardcontent">
             {% for item in task_list %}
@@ -45,7 +51,7 @@
             <form action="/addtask/?type=add" method="POST">
                 <h4 style="text-align: center;padding-top: 10px;">新建事项</h4>
                 <p>标题:&nbsp;<input type="text" name="title"></p>
-                <span style="display: inline-block;vertical-align: top;">内容:&nbsp;</span><textarea name="content" cols="36" rows="15" style="display: inline-block;"></textarea>
+                <span style="display: inline-block;vertical-align: top;">内容:&nbsp;</span><textarea name="content" style="display: inline-block; width: 300px; height: 230px; resize: none"></textarea>
             </form>
             <div class="subform">
                 <button id="confirm" type="submit" style="background-color: cornflowerblue;" onclick="confirmForm('add')">确定</button>
@@ -56,7 +62,7 @@
             <form action="/addtask/?type=edit" method="POST">
                 <h4 style="text-align: center;padding-top: 10px;">修改</h4>
                 <p>标题:&nbsp;<input type="text" name="title"></p>
-                <span style="display: inline-block;vertical-align: top;">内容:&nbsp;</span><textarea name="content" cols="36" rows="15" style="display: inline-block;"></textarea>
+                <span style="display: inline-block;vertical-align: top;">内容:&nbsp;</span><textarea name="content" style="display: inline-block; width: 300px; height: 230px; resize: none"></textarea>
                 <input type="hidden" value="{{ username }}" name="username">
                 <input type="hidden" value="" name="task_id" id="editformip">
             </form>

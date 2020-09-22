@@ -29,14 +29,14 @@ nav a {
 
 nav ul {
     margin-right: 20px;
+    text-align: center;
 }
 
 nav ul li {
     float: left;
-    height: 40px;
+    height: 25px;
     list-style: none;
-    margin: 0px 10px 0px 10px;
-    padding-top: 15px;
+    padding: 5px 10px 0px 10px;
     cursor: pointer;
 }
 
@@ -45,11 +45,12 @@ nav ul li:hover {
 }
 
 main .addContainer {
-    position: absolute;
+    /*position: absolute;*/
     display: flex;
+    margin: 100px auto 0px;
     flex-direction: column;
-    top: 20%;
-    left: 30%;
+    /*top: 20%;*/
+    /*left: 30%;*/
     justify-content: center;
     align-items: center;
 }
@@ -70,7 +71,6 @@ main .addContainer {
 
 #nav-add-batton {
     margin: 0px;
-    width: 65px;
     height: 35px;
     font-size: initial;
     letter-spacing: initial;
@@ -81,7 +81,8 @@ main .addContainer {
     display: none;
     width: 400px;
     height: 400px;
-    background-color: gray;
+    background-color: #ffffff;
+    border-radius: 10px;
     top: 25%;
     left: 35%;
     margin: 0px 200px 200px 0px;
@@ -113,6 +114,8 @@ main .addContainer {
 
 .taskform .subform button #cancel {
     background-color: #fff;
+    border: 1px solid gray;
+    outline: none;
 }
 
 .taskform #parea {

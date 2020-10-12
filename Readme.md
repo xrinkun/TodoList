@@ -9,8 +9,9 @@ test account:
 * username: test2 password: test2  
 
 xadmin user:
-* username: admin password: admin
+* username: admin password: admin  
 
+xadmin_page: admin/  
 home_page: index/  
 register_page: register/  
 login_page: login/  

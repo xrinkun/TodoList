@@ -11,11 +11,11 @@
             <a class="logo" href="/index/">TodoList</a>
             {% if username != "未登录" %}
                 {% if task_num != 0  %}
-                    <button class="addTaskBtn" id="nav-add-batton" type="button" onclick="addTask()">添加</button>
+                    <button class="addTaskBtn" id="nav-add-button" type="button" onclick="addTask()">添加</button>
                 {% endif %}
             {% endif %}
             <ul>
-                {% if username != None %}
+                {% if username != '未登陆' %}
                     <li>{{ username }}</li>
                     <li onclick="logout()">注销账号</li>
                 {% else %}
@@ -25,13 +25,17 @@
         </nav>
     </header>
     <main>
-        {% if task_num == 0 and username != None%}
+        {% if task_num == 0 and username != '未登陆'%}
             <div class="addContainer">
                 <h1 style="text-align: center;">没有任何事项，点击下面按钮添加</h1>
                 <button class="addTaskBtn" type="button" onclick="addTask()">添加</button>
             </div>
-        {% elif username == "未登录" %}
-            <h1 style="text-align: center; margin-top: 200px">请点击右上角登录</h1>
+        {% elif username == "未登陆" %}
+            <h1 style="text-align: center; margin-top: 100px">请点击右上角登录</h1>
+            <div class="login-notifi">
+                <button class="addTaskBtn" type="button" onclick="login()">登陆</button>
+                <button class="addTaskBtn" type="button" onclick="registe()">注册</button>
+            </div>
         {% endif %}
         <div class="cardcontent">
             {% for item in task_list %}
@@ -73,13 +77,16 @@
         </div>
     </main>
     <script>
-        var task_id;
         function login(){
             window.location.href = "/login/"
         }
 
+        function registe() {
+            window.location.href = "/register/"
+        }
+
         function addTask() {
-            var formdiv = document.getElementById("taskform")
+            let formdiv = document.getElementById("taskform");
             formdiv.style.display = "block";
         }
 
@@ -100,7 +107,7 @@
         }
 
         function editForm(obj) {
-            task_id = obj.getElementsByTagName("input")[0].value;
+            let task_id = obj.getElementsByTagName("input")[0].value;
             let form = document.getElementById("taskformedit");
             document.getElementById("editformip").setAttribute("value",task_id);
             form.style.display = "block";
